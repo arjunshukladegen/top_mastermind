@@ -47,6 +47,8 @@ loop do
     human_name = get_name
     cpu_name = random_name
     Game.new(human_name, cpu_name).start
+    puts "Game: Mastermind is now restarting!"
+    sleep 3
   when 'no'
     break
   else

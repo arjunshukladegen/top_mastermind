@@ -44,10 +44,39 @@ class Game
     puts "Game: ○ = Right Color & Wrong Spot"
 
     loop do
+      if @round > 13
+        break
+      end
+
       # Gameplay loop
       guess = play_round
       puts "#{@human_player.name}: I guess #{guess}!"
-      puts "#{@computer_player.name}: My code is #{@code.code}"
+      score = @code.score(guess)
+
+      if score[0] == 4
+        break
+      end
+
+      puts "#{@computer_player.name}: You got #{score[0]} exactly correct, and the correct color for #{score[1]}..."
+      symbols = ("●" * score[0]) + ("○" * score[1])
+      puts "#{@computer_player.name}: #{symbols}"
+
+      @round += 1
+    end
+
+    if @round > 12
+      puts "\n"
+      puts "----------Game Over: Out of Moves----------"
+      puts "Game: #{@human_player.name} has lost the game..."
+      puts "Game: #{@computer_player.name} has won!"
+      puts "#{@computer_player.name}: My secret code was #{@code.code}... I knew you would never guess it!!!"
+      sleep 5
+    else
+      puts "\n"
+      puts "----------Game Over: Round #{@round}----------"
+      puts "Game: #{@computer_player.name} has lost the game..."
+      puts "Game: #{@human_player.name} has won!"
+      puts "#{@computer_player.name}: How did you know... It cant be... I've never lost before... What is this feeling... Nooooooooooo.... (voice fades out dramatically)"
     end
 
   end
